@@ -14,11 +14,11 @@ export class AppController {
   // 이 요청은 성공함
   @Get("/hello")
   sayHello(): string {
-    return "Hello everyone";
+    return this.appService.getHi();
   }
   //이 요청은 실패해야함 
   @Post("/hello2")
   sayHello2(): string {
-    return "Hello everyone";
+    return this.appService.getHi2();
   }
 }
