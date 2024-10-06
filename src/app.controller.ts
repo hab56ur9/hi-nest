@@ -11,10 +11,12 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  // 이 요청은 성공함
   @Get("/hello")
   sayHello(): string {
     return "Hello everyone";
   }
+  //이 요청은 실패해야함 
   @Post("/hello2")
   sayHello2(): string {
     return "Hello everyone";
