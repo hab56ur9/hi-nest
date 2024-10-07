@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, P
 import { MoviesService } from './movies.service';
 import { Movie } from './entites/movie.entity';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 //controller의 entry point, 이 controller의 url들은 /controller 하위에 정의된다.
 @Controller('movies')
@@ -39,7 +40,7 @@ export class MoviesController {
     // @Put 모든 리소스를 업데이트함 
     // @Patch 리소스의 일부부만 업데이트해줌
     @Patch("/:id")
-    patchMovie(@Param('id') movieId:Number, @Body() updateData){
+    patchMovie(@Param('id') movieId:Number, @Body() updateData:UpdateMovieDto){
         return this.moviesService.update(movieId,updateData);
     }
 
