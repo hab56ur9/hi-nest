@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entites/movie.entity';
 
@@ -38,12 +38,7 @@ export class MoviesController {
     // @Patch 리소스의 일부부만 업데이트해줌
     @Patch("/:id")
     patchMovie(@Param('id') movieId:string, @Body() updateData){
-        return { 
-            updatedMovie: movieId,// 별도의 작업 없이 json으로 자동 파싱됨, 개꿀
-            ...updateData, // ... 문법은 json 이어 붙이기 용도
-        }
-        return `This will patch a movie with the id : ${movieId}`;
+        return this.moviesService.update(movieId,updateData);
     }
-
 
 }

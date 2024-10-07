@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Movie } from './entites/movie.entity';
 
 // services 는 DB를 다룬다.
@@ -11,16 +11,25 @@ export class MoviesService {
     }
 
     getOne(id:string):Movie{
-        return this.movies.find(movie=>movie.id === parseInt(id)/* +id <== 사용해도 자동으로 Parse됨*/);
+        const movie = this.movies.find(movie=>movie.id === parseInt(id)/* +id <== 사용해도 자동으로 Parse됨*/);
+        if(!movie){
+            throw new NotFoundException(`Movie with ID:${id} not found.`);
+        }
+        return movie
     }
-    deleteOne(id:string):boolean{
-        this.movies.filter(movie=>movie.id !== +id);
-        return true;
+    deleteOne(id:string){
+        this.getOne(id);
+        this.movies = this.movies.filter(movie=>movie.id !== +id);
     }
     create(movieData){
         this.movies.push({
             id:this.movies.length+1,
             ...movieData,
         })
+    }
+    update(id:string, updatedData){
+        const movie = this.getOne(id);
+        this.deleteOne(id);
+        this.movies.push({...movie,...updatedData});
     }
 }
