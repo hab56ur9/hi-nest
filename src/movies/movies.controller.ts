@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Put, Query, Req, Res } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { Movie } from './entites/movie.entity';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -11,8 +11,10 @@ export class MoviesController {
     // type만 추가해도 DI가 작동하고있음.. 왜지?
     constructor(readonly moviesService: MoviesService){}
 
+    // Request와 Response 객체에 직접접근, nest에서 express모듈에 접근한다는 의미임.
+    // 하지만 이렇게 객체에 직접접근하는게 좋은 동작은 아님, 왜냐하면 nest는 express위에서 돌아갈 수도있고 fastify에서 돌아갈 수도 있기 때문.
     @Get()
-    getAll():Movie[]{
+    getAll(@Req() req, @Res() res):Movie[]{
         return this.moviesService.getAll();
     }
     // search같은 하위 주소를 직접 지정하는 요청이 /:id
