@@ -4,6 +4,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 
 // services 는 DB를 다룬다.
+// 듣자하니 이게 @Injectable이라서 DI에서 뭘 해주는거같은데 아직 잘..애매함.
 @Injectable()
 export class MoviesService {
     private movies:Movie[] = [];

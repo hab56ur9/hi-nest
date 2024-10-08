@@ -8,6 +8,7 @@ import { UpdateMovieDto } from './dto/update-movie.dto';
 @Controller('movies')
 export class MoviesController {
     // "/movies"
+    // type만 추가해도 DI가 작동하고있음.. 왜지?
     constructor(readonly moviesService: MoviesService){}
 
     @Get()
